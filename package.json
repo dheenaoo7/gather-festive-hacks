@@ -13,13 +13,15 @@
     "start": "next start --hostname 127.0.0.1 --port 3100",
     "start:lan": "next start --hostname 0.0.0.0 --port 3100",
     "tunnel": "cloudflared tunnel --no-autoupdate --url http://127.0.0.1:3100",
-    "test": "node --test"
+    "test": "node --test",
+    "sarvam:hello": "node --env-file=.env.local scripts/sarvam-hello.mjs"
   },
   "dependencies": {
     "next": "16.4.6",
     "qrcode": "1.5.4",
     "react": "19.2.9",
     "react-dom": "19.2.9",
+    "sarvamai": "1.1.22",
     "server-only": "0.0.1"
   }
 }
