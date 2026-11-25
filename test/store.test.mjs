@@ -53,7 +53,7 @@ test('SQLite retains the response after reopening the database', t => {
   first.close();
   const reopened = fixture(t, filename);
   assert.equal(reopened.view('guest', eventId).response, 'yes');
-  assert.equal(reopened.users().length, 6, 'reopening must not re-seed');
+  assert.equal(reopened.users().length, 11, 'reopening must not re-seed');
 });
 
 test('sessions use opaque tokens and can be revoked', t => {

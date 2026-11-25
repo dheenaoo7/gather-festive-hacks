@@ -1,5 +1,6 @@
 import { getStore } from '@/lib/db.mjs';
 import { handleCallResult } from '@/lib/voice.mjs';
+import { SarvamAIClient } from 'sarvamai';
 
 export const dynamic = 'force-dynamic';
 
@@ -14,22 +15,15 @@ Transcript:
 ${transcript}`;
 
   try {
-    const res = await fetch('https://api.sarvam.ai/v1/chat/completions', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'api-subscription-key': apiKey,
-      },
-      body: JSON.stringify({
-        model: 'sarvam-2b',
-        messages: [{ role: 'user', content: prompt }],
-        temperature: 0.1,
-      }),
+    const client = new SarvamAIClient({ apiSubscriptionKey: apiKey });
+    const res = await client.chat.completions({
+      model: 'sarvam-105b',
+      messages: [{ role: 'user', content: prompt }],
+      temperature: 0.1,
     });
-    if (!res.ok) return null;
-    const data = await res.json();
-    return data.choices?.[0]?.message?.content ?? null;
-  } catch {
+    return res.choices?.[0]?.message?.content ?? null;
+  } catch (err) {
+    console.error('sarvam extraction failed:', err?.message);
     return null;
   }
 }
