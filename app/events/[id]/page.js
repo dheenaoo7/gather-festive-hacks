@@ -4,6 +4,7 @@ import { notFound, redirect } from 'next/navigation';
 import QRCode from 'qrcode';
 import { getStore, currentUser } from '@/lib/db.mjs';
 import { rsvp } from '../../actions';
+import { publicBaseUrl } from '@/lib/public-url.mjs';
 
 export const dynamic = 'force-dynamic';
 
@@ -18,8 +19,7 @@ export default async function EventPage({ params }) {
 
   let qr = null;
   if (user.role === 'host') {
-    const h = await headers();
-    const url = `${h.get('x-forwarded-proto') ?? 'http'}://${h.get('host')}/events/${event.id}`;
+    const url = `${publicBaseUrl(await headers())}/events/${event.id}`;
     qr = { url, svg: await QRCode.toString(url, { type: 'svg', margin: 1, width: 180 }) };
   }
 
