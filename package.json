@@ -14,9 +14,11 @@
     "start:lan": "next start --hostname 0.0.0.0 --port 3100",
     "tunnel": "cloudflared tunnel --no-autoupdate --url http://127.0.0.1:3100",
     "test": "node --test",
-    "sarvam:hello": "node --env-file=.env.local scripts/sarvam-hello.mjs"
+    "sarvam:hello": "node --env-file=.env.local scripts/sarvam-hello.mjs",
+    "key": "node scripts/set-key.mjs"
   },
   "dependencies": {
+    "@flagsmith/flagsmith": "12.6.0",
     "next": "16.4.6",
     "qrcode": "1.5.4",
     "react": "19.2.9",
